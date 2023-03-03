@@ -91,9 +91,21 @@ kyoco.interactive = true;
 app.stage.addChild(kyoco);
 
 // 判定範囲を絵に合わせて設定
-// kyoco.hitArea = new PIXI.Circle(142, 90, 64);
+kyoco.hitArea = new PIXI.Circle(142, 90, 64);
 
 const textBoundary = new EventBoundary(kyoco);
+
+/**
+ *  障害物3（基本課題）
+ */
+const bar = new PIXI.Graphics();
+bar.beginFill(0xa0ffa0);
+bar.drawRect(0, 0, 400, 20);
+bar.endFill();
+bar.position.set(200, 390);
+bar.interactive = true;
+app.stage.addChild(bar);
+const barBoundary = new EventBoundary(bar);
 
 /**
  * マウスの位置取得
@@ -136,6 +148,7 @@ app.ticker.add(delta => {
     // スプライトの位置と衝突しているオブジェクトがあれば返す
     const hitObj1 = boxBoundary.hitTest(spr.x, spr.y);
     const hitObj2 = textBoundary.hitTest(spr.x, spr.y);
+    const hitObj3 = barBoundary.hitTest(spr.x, spr.y);    
     if (hitObj1) {
       spr.texture = orangeTexture;
 
@@ -144,19 +157,27 @@ app.ticker.add(delta => {
        * （2つ以上同時に有効にしないこと）
        */
       // (1) そのまま通過する
-      pattern1(spr);
+      // pattern1(spr);
 
       // (2) 矩形の上を右へ転がる
-      // pattern2(spr);
+      pattern2(spr);
 
       // (3) 矩形の上に積もる
       // pattern3(spr);
 
     }
     else if (hitObj2) {
-      pattern1(spr);
-      // pattern2(spr);
+      //pattern1(spr);
+      pattern2(spr);
       //pattern3(spr);
+    }
+    else if (hitObj3) {
+      if(spr.x < bar.x + bar.width/2) {
+        spr.x -= spr.speed;
+      }
+      else {
+        spr.x += spr.speed;
+      }
     }
     else {
       // y座標をそれぞれのspeedの値だけ増やす
