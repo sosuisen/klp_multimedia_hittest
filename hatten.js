@@ -111,39 +111,9 @@ app.ticker.add(delta => {
       // ベクトル((spr.x - mouseX), (spr.y - mouseY))と
       // ベクトル(0, -1)との内積innerを用いて、そのなす角のcosを求める
 
-      const inner = (spr.x - mouseX) * 0 + (spr.y - mouseY) * (-1);
-      const cos = inner / (len + 1);
 
-      // スプライトは傘よりも上かどうか判定。
-      // 下側なら無視
-      if (cos > 0) {
-        // 衝突した雪は、傘の円に沿って移動させる。
 
-        // アークコサインMath.acos()はcosの値に対応する角度をラジアンで返す。
-        const currentAngle = Math.acos(cos);
-        // 現在の角度に 1度（Math.PI/180ラジアン）加える。
-        // ただし 90度を越えない
-        const newAngle = Math.min(currentAngle + Math.PI / 180, Math.PI / 2);
 
-        // スプライトはカーソルの左側か右側か？
-        let sign = 1;
-        if (spr.x - mouseX < 0) {
-          // 左側の場合
-          sign = -1;
-        }
-
-        // スプライトの座標を三角関数を用いて円に沿って移動させる
-        spr.x = mouseX + sign * radius * Math.sin(newAngle);
-        spr.y = mouseY - radius * Math.cos(newAngle);
-
-        // 三角関数を使わず、
-        // spr.yも変更せず、
-        // spr.xだけ次のように変更してもそれなりには描けます。
-        // spr.x += sign * spr.speed;
-      }
-      else {
-        spr.y += spr.speed;
-      }
     }
     else {
       // y座標をそれぞれのspeedの値だけ増やす
