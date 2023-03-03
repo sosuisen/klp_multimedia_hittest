@@ -86,8 +86,7 @@ const boxBoundary = new EventBoundary(box);
  * 障害物2（イラスト）
  */
 const kyoco = PIXI.Sprite.from('kyoco_trans256x256.png');
-kyoco.x = 450;
-kyoco.y = 150;
+kyoco.position.set(450, 150);
 kyoco.interactive = true;
 app.stage.addChild(kyoco);
 
@@ -95,7 +94,6 @@ app.stage.addChild(kyoco);
 // kyoco.hitArea = new PIXI.Circle(142, 90, 64);
 
 const textBoundary = new EventBoundary(kyoco);
-
 
 /**
  * マウスの位置取得
