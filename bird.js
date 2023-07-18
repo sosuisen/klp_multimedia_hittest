@@ -150,35 +150,44 @@ box.beginFill(0xe09060);
 box.drawRoundedRect(0, 0, 100, 100);
 box.endFill();
 box.position.set(250, 150);
-// 衝突判定対象とする場合、eventModeは必ずstatic
-box.eventMode = 'static';
 app.stage.addChild(box);
 
-// 衝突判定を実施する範囲を指定
-const boxBoundary = new EventBoundary(box);
+// 軸平行境界ボックス
+// (AABB: Axis-Aligned bounding Box）
+// を用いた当たり判定
+const testAABB = (bounds1, bounds2) => {
+  return bounds1.x < bounds2.x + bounds2.width
+    && bounds1.x + bounds1.width > bounds2.x
+    && bounds1.y < bounds2.y + bounds2.height
+    && bounds1.y + bounds1.height > bounds2.y;
+}
 
 app.ticker.add(() => {
   const delta = 2;
+  const newBounds = {
+    x: anime.x,
+    y: anime.y,
+    width: anime.width,
+    height: anime.height,
+  };
   switch (currentMove) {
     case 'walkLeft':
-      if (!boxBoundary.hitTest(anime.x - delta, anime.y))
-        anime.x -= delta;
+      newBounds.x -= delta;
       break;
     case 'walkRight':
-      if (!boxBoundary.hitTest(anime.x + anime.width + delta, anime.y))
-        anime.x += delta;
-      else{
-        console.log("ouch");
-      }
+      newBounds.x += delta;
       break;
     case 'walkUp':
-      if (!boxBoundary.hitTest(anime.x, anime.y - delta))
-        anime.y -= delta;
+      newBounds.y -= delta;
       break;
     case 'walkDown':
-      if (!boxBoundary.hitTest(anime.x + delta, anime.y + delta))
-        anime.y += delta;
+      newBounds.y += delta;
       break;
     default: break;
   }
+  if (!testAABB(newBounds, { x: box.x, y: box.y, width: box.width, height: box.height })) {
+    anime.x = newBounds.x;
+    anime.y = newBounds.y;
+  }
 });
+
