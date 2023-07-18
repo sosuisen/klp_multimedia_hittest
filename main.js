@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { EventBoundary, Graphics } from 'pixi.js';
+import { EventBoundary } from 'pixi.js';
 
 const app = new PIXI.Application({ antialias: true, width: 800, height: 600 });
 
@@ -17,8 +17,8 @@ const particles = new PIXI.Container();
 /*
 const particles = new PIXI.ParticleContainer(maxSprites, {
   vertices: true, // scaleを変更する場合はtrue
-  position: true, // positionを変更する場合はtrue
-  rotation: true, // rotationを変更する場合はtrue
+  // position: true, // positionを変更する場合はtrue
+  // rotation: true, // rotationを変更する場合はtrue
 });
 */
 
@@ -74,8 +74,9 @@ box.drawRoundedRect(0, 0, 200, 32);
 box.draw
 box.endFill();
 box.position.set(100, 250);
-// 衝突判定対象とする場合、interactiveは必ずtrue
-box.interactive = true;
+// 衝突判定対象とする場合、eventModeは必ずstatic
+box.eventMode = 'static';
+box.angle = 10;
 app.stage.addChild(box);
 
 // 衝突判定を実施する範囲を指定
@@ -87,7 +88,7 @@ const boxBoundary = new EventBoundary(box);
  */
 const kyoco = PIXI.Sprite.from('kyoco_trans256x256.png');
 kyoco.position.set(450, 150);
-kyoco.interactive = true;
+kyoco.eventMode = 'static';
 app.stage.addChild(kyoco);
 
 // 判定範囲を絵に合わせて設定
@@ -100,8 +101,10 @@ const textBoundary = new EventBoundary(kyoco);
  */
 let mouseX = 0;
 let mouseY = 0;
-app.stage.interactive = true;
-app.stage.hitArea = app.screen; // app.stageをinteractiveにするときは必須。
+app.stage.eventMode = 'static';
+// app.stageのeventModeをstaticにしてstage上のイベントを取得する場合は
+// hitArea = app.screenが必須。
+app.stage.hitArea = app.screen;
 app.stage.on('pointermove', event => {
   console.log(`[stage] screen(${event.screen.x}, ${event.screen.y}))`);
   mouseX = event.screen.x;
