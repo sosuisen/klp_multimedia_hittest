@@ -76,6 +76,7 @@ box.endFill();
 box.position.set(100, 250);
 // 衝突判定対象とする場合、interactiveは必ずtrue
 box.interactive = true;
+box.angle = 10;
 app.stage.addChild(box);
 
 // 衝突判定を実施する範囲を指定
@@ -130,7 +131,7 @@ const pattern1 = spr => {
 
 const pattern2 = spr => {
   // xだけ増やす
-  spr.x += spr.speed;
+  spr.x += spr.speed;;
 };
 
 const pattern3 = spr => {
@@ -169,7 +170,7 @@ app.ticker.add(delta => {
     else if (hitObj2) {
       //pattern1(spr);
       pattern2(spr);
-      //pattern3(spr);
+      // pattern3(spr);
     }
     else if (hitObj3) {
       if(spr.x < bar.x + bar.width/2) {
