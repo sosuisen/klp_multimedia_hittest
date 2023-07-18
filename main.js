@@ -92,12 +92,12 @@ kyoco.eventMode = 'static';
 app.stage.addChild(kyoco);
 
 // 判定範囲を絵に合わせて設定
-// kyoco.hitArea = new PIXI.Circle(142, 90, 64);
+kyoco.hitArea = new PIXI.Circle(142, 90, 64);
 
 const textBoundary = new EventBoundary(kyoco);
 
 /**
- * マウスの位置取得
+ * マウスの位置取得（発展課題で使用）
  */
 let mouseX = 0;
 let mouseY = 0;
