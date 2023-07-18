@@ -63,6 +63,15 @@ graphics05.eventMode = 'static';
 app.stage.addChild(graphics05);
 const boundary05 = new EventBoundary(graphics05);
 
+const kyoco = PIXI.Sprite.from('kyoco_trans256x256.png');
+kyoco.position.set(470, 150);
+kyoco.eventMode = 'static';
+app.stage.addChild(kyoco);
+// デフォルトの判定範囲はテクスチャの長方形
+// 透明部分を判定させないためには、
+// 絵に合わせて範囲設定する必要があります。
+// kyoco.hitArea = new PIXI.Circle(142, 90, 64); // ざっくり
+const boundaryKyoco = new EventBoundary(kyoco);
 
 /**
  * マウスの位置取得
@@ -77,18 +86,21 @@ app.stage.on('pointerdown', event => {
    * hitAreaを設定しない限り当たり判定がありません。
    */
   if(boundary01.hitTest(event.screen.x, event.screen.y)){
-    graphics01.tint = 0xff0000;
+    graphics01.tint = 0xff9000;
   }
   else if(boundary02.hitTest(event.screen.x, event.screen.y)){
-    graphics02.tint = 0xff0000;
+    graphics02.tint = 0xff9000;
   }
   else if(boundary03.hitTest(event.screen.x, event.screen.y)){
-    graphics03.tint = 0xff0000;
+    graphics03.tint = 0xff9000;
   }
   else if(boundary04.hitTest(event.screen.x, event.screen.y)){
-    graphics04.tint = 0xff0000;
+    graphics04.tint = 0xff9000;
   }
   else if(boundary05.hitTest(event.screen.x, event.screen.y)){
-    graphics05.tint = 0xff0000;
+    graphics05.tint = 0xff9000;
+  }
+  else if(boundaryKyoco.hitTest(event.screen.x, event.screen.y)){
+    kyoco.tint = 0xff9000;
   }
 });
