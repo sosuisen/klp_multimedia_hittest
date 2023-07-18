@@ -76,6 +76,7 @@ box.endFill();
 box.position.set(100, 250);
 // 衝突判定対象とする場合、interactiveは必ずtrue
 box.interactive = true;
+box.angle = 10;
 app.stage.addChild(box);
 
 // 衝突判定を実施する範囲を指定
