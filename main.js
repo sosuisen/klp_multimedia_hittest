@@ -71,7 +71,6 @@ for (let i = 0; i < maxSprites; i++) {
 const box = new PIXI.Graphics();
 box.beginFill(0xe09060);
 box.drawRoundedRect(0, 0, 200, 32);
-box.draw
 box.endFill();
 box.position.set(100, 250);
 // 衝突判定対象とする場合、eventModeは必ずstatic
