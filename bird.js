@@ -96,6 +96,9 @@ anime.loop = true;
 anime.animationSpeed = 0.1;
 anime.play();
 app.stage.addChild(anime);
+anime.eventMode = 'static';
+// 衝突判定を実施する範囲を指定
+const animeBoundary = new EventBoundary(anime);
 
 // 現在の移動方向
 let currentMove = '';
@@ -142,52 +145,57 @@ window.addEventListener("keyup", () => {
   currentMove = '';
 });
 
-/**
- * 障害物
- */
-const box = new PIXI.Graphics();
-box.beginFill(0xe09060);
-box.drawRoundedRect(0, 0, 100, 100);
-box.endFill();
-box.position.set(250, 150);
-app.stage.addChild(box);
 
-// 軸平行境界ボックス
-// (AABB: Axis-Aligned bounding Box）
-// を用いた当たり判定
-const testAABB = (bounds1, bounds2) => {
-  return bounds1.x < bounds2.x + bounds2.width
-    && bounds1.x + bounds1.width > bounds2.x
-    && bounds1.y < bounds2.y + bounds2.height
-    && bounds1.y + bounds1.height > bounds2.y;
+const createCircleTexture = (color) => {
+  const g = new PIXI.Graphics();
+  g.beginFill(color, 0.7);
+  g.lineStyle({
+    color: 0xffffff,
+    width: 3,
+  });
+  g.drawCircle(0, 0, 10);
+  g.endFill();
+  return app.renderer.generateTexture(g);
+};
+const orangeTexture = createCircleTexture(0xffe0a0);
+const initSprite = (spr) => {
+  spr.anchor.set(0.5);
+  spr.x = Math.random() * app.screen.width;
+  spr.y = Math.random() * app.screen.height;
+  spr.texture = orangeTexture;
+  return spr;
+};
+const maxSprites = 100;
+const particles = new PIXI.Container();
+for (let i = 0; i < maxSprites; i++) {
+  const spr = new PIXI.Sprite();
+  initSprite(spr);
+  particles.addChild(spr);
 }
+app.stage.addChild(particles);
 
 app.ticker.add(() => {
   const delta = 2;
-  const newBounds = {
-    x: anime.x,
-    y: anime.y,
-    width: anime.width,
-    height: anime.height,
-  };
   switch (currentMove) {
     case 'walkLeft':
-      newBounds.x -= delta;
+      anime.x -= delta;
       break;
     case 'walkRight':
-      newBounds.x += delta;
+      anime.x += delta;
       break;
     case 'walkUp':
-      newBounds.y -= delta;
+      anime.y -= delta;
       break;
     case 'walkDown':
-      newBounds.y += delta;
+      anime.y += delta;
       break;
     default: break;
   }
-  if (!testAABB(newBounds, { x: box.x, y: box.y, width: box.width, height: box.height })) {
-    anime.x = newBounds.x;
-    anime.y = newBounds.y;
+  for(let i = 0; i < particles.children.length; i++) {
+    const spr = particles.children[i];
+    if(animeBoundary.hitTest(spr.x, spr.y)){
+      particles.removeChild(spr);
+    }
   }
 });
 
