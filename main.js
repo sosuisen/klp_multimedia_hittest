@@ -6,7 +6,7 @@ const app = new PIXI.Application({ antialias: true, width: 800, height: 600 });
 document.body.appendChild(app.view);
 
 // 表示をする画像の最大数を指定
-// let maxSprites = 100;
+// const maxSprites = 100;
 const maxSprites = 1000;
 
 const particles = new PIXI.Container();
@@ -140,6 +140,9 @@ app.ticker.add(delta => {
     const hitObj1 = boxBoundary.hitTest(spr.x, spr.y);
     const hitObj2 = textBoundary.hitTest(spr.x, spr.y);
     if (hitObj1) {
+      /**
+       * 当たったらテクスチャを変更する
+       */
       spr.texture = orangeTexture;
 
       /**
