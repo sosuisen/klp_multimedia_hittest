@@ -162,7 +162,7 @@ app.ticker.add(delta => {
     else if (hitObj2) {
       pattern1(spr);
       // pattern2(spr);
-      //pattern3(spr);
+      // pattern3(spr);
     }
     else {
       // y座標をそれぞれのspeedの値だけ増やす
