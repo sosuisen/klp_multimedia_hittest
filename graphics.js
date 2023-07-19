@@ -4,8 +4,6 @@ import { EventBoundary } from 'pixi.js';
 const app = new PIXI.Application({ antialias: true, backgroundColor: 0xa0a0ff });
 document.body.appendChild(app.view);
 
-const graphics = new PIXI.Graphics();
-
 // Line（直線）
 const graphics01 = new PIXI.Graphics();
 graphics01.lineStyle(4, 0xffd900, 0.5);
