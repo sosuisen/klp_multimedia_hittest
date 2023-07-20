@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import { EventBoundary } from 'pixi.js';
 const app = new PIXI.Application({ width: 640, height: 480 });
 
 document.body.appendChild(app.view);
