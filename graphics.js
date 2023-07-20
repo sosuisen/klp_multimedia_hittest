@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import { EventBoundary } from 'pixi.js';
 
 const app = new PIXI.Application({ antialias: true, backgroundColor: 0xa0a0ff });
 document.body.appendChild(app.view);
@@ -13,9 +12,9 @@ graphics01.lineTo(200, 50);
 graphics01.lineTo(300, 100);
 graphics01.eventMode = 'static';
 // hitAreaを設定しない限り、当たり判定なし。
-// graphics01.hitArea = new PIXI.Rectangle(0, 0, 300, 100);
+// graphics01.hitArea = new PIXI.Rectangle(30, 50, 270, 50);
 app.stage.addChild(graphics01);
-const boundary01 = new EventBoundary(graphics01);
+const boundary01 = new PIXI.EventBoundary(graphics01);
 
 // Shape（閉じた図形）
 const graphics02 = new PIXI.Graphics();
@@ -29,7 +28,7 @@ graphics02.closePath();
 graphics02.endFill();
 graphics02.eventMode = 'static';
 app.stage.addChild(graphics02);
-const boundary02 = new EventBoundary(graphics02);
+const boundary02 = new PIXI.EventBoundary(graphics02);
 
 // Polygon（多角形）
 const graphics03 = new PIXI.Graphics();
@@ -41,7 +40,7 @@ graphics03.drawPolygon(path);
 graphics03.endFill();
 graphics03.eventMode = 'static';
 app.stage.addChild(graphics03);
-const boundary03 = new EventBoundary(graphics03);
+const boundary03 = new PIXI.EventBoundary(graphics03);
 
 // Circle（円＋塗りつぶしなし）
 const graphics04 = new PIXI.Graphics();
@@ -49,7 +48,7 @@ graphics04.lineStyle(10, 0xffbd01, 1);
 graphics04.drawCircle(400, 80, 50);
 graphics04.eventMode = 'static';
 app.stage.addChild(graphics04);
-const boundary04 = new EventBoundary(graphics04);
+const boundary04 = new PIXI.EventBoundary(graphics04);
 
 // Circle（円＋塗りつぶし有り）
 const graphics05 = new PIXI.Graphics();
@@ -59,7 +58,7 @@ graphics05.drawCircle(400, 280, 50);
 graphics03.endFill();
 graphics05.eventMode = 'static';
 app.stage.addChild(graphics05);
-const boundary05 = new EventBoundary(graphics05);
+const boundary05 = new PIXI.EventBoundary(graphics05);
 
 const kyoco = PIXI.Sprite.from('kyoco_trans256x256.png');
 kyoco.position.set(470, 150);
@@ -69,7 +68,7 @@ app.stage.addChild(kyoco);
 // 透明部分を判定させないためには、
 // 絵に合わせて範囲設定する必要があります。
 // kyoco.hitArea = new PIXI.Circle(142, 90, 64); // ざっくり
-const boundaryKyoco = new EventBoundary(kyoco);
+const boundaryKyoco = new PIXI.EventBoundary(kyoco);
 
 /**
  * マウスの位置取得
