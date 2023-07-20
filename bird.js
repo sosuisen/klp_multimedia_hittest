@@ -151,7 +151,7 @@ box.endFill();
 box.position.set(250, 150);
 app.stage.addChild(box);
 
-// 軸平行境界ボックス
+// 軸平行境界矩形
 // (AABB: Axis-Aligned bounding Box）
 // を用いた当たり判定
 const testAABB = (bounds1, bounds2) => {
