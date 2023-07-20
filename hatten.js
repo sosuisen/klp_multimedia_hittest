@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js'
-import { EventBoundary, Graphics } from 'pixi.js';
 
 const app = new PIXI.Application({ antialias: true, width: 800, height: 600 });
 
@@ -79,12 +78,14 @@ umbrella.arc(0, 0, umbrellaSize, 0, Math.PI, true);
 app.stage.addChild(umbrella);
 
 /**
- * マウスの位置取得
+ * マウスの位置取得（発展課題で使用）
  */
 let mouseX = 0;
 let mouseY = 0;
-app.stage.interactive = true;
-app.stage.hitArea = app.screen; // app.stageをinteractiveにするときは必須。
+app.stage.eventMode = 'static';
+// app.stageのeventModeをstaticにしてstage上のイベントを取得する場合は
+// hitArea = app.screenが必須。
+app.stage.hitArea = app.screen;
 app.stage.on('pointermove', event => {
   console.log(`[stage] screen(${event.screen.x}, ${event.screen.y}))`);
   mouseX = event.screen.x;
@@ -98,28 +99,14 @@ app.ticker.add(delta => {
   particles.children.forEach(spr => {
     // 発展課題：マウスで傘をさす。
 
-    // hitTestを用いない
-    // マウスカーソルとの距離がumbrellaSize以内、
-    // かつカーソルよりも上にあるスプライトは
-    // カーソルを中心とする円を描いて避ける。
-
-    // スプライトの中心位置と傘の中心位置の間の距離
-    let len = Math.sqrt(Math.pow(spr.x - mouseX, 2) + Math.pow(spr.y - mouseY, 2));
-    // この距離が「傘の半径とスプライトの半径の和」（radius）より小さいと衝突状態。
-    const radius = umbrellaSize + spr.width / 2;
-    if (len < radius) {
-      // ベクトル((spr.x - mouseX), (spr.y - mouseY))と
-      // ベクトル(0, -1)との内積innerを用いて、そのなす角のcosを求める
 
 
 
 
-    }
-    else {
-      // y座標をそれぞれのspeedの値だけ増やす
-      spr.y += spr.speed;
-    }
+    
 
+    // y座標をそれぞれのspeedの値だけ増やす
+    spr.y += spr.speed;
 
     // 下端に達したスプライトは上へ戻す
     // スプライトの座標原点は中心なので、サイズの半分を足しておく

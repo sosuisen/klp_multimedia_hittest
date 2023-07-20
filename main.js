@@ -80,7 +80,6 @@ app.stage.addChild(box);
 // 衝突判定を実施する範囲を指定
 const boxBoundary = new PIXI.EventBoundary(box);
 
-
 /**
  * 障害物2（イラスト）
  */
@@ -94,20 +93,6 @@ kyoco.hitArea = new PIXI.Circle(142, 90, 64);
 
 const textBoundary = new PIXI.EventBoundary(kyoco);
 
-/**
- * マウスの位置取得（発展課題で使用）
- */
-let mouseX = 0;
-let mouseY = 0;
-app.stage.eventMode = 'static';
-// app.stageのeventModeをstaticにしてstage上のイベントを取得する場合は
-// hitArea = app.screenが必須。
-app.stage.hitArea = app.screen;
-app.stage.on('pointermove', event => {
-  console.log(`[stage] screen(${event.screen.x}, ${event.screen.y}))`);
-  mouseX = event.screen.x;
-  mouseY = event.screen.y;
-});
 
 /**
  * 衝突時の処理
