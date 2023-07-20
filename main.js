@@ -126,10 +126,7 @@ const pattern3 = spr => {
   // 何もしない
 };
 
-let time = 0.0;
-app.ticker.add(delta => {
-  time += delta;
-
+app.ticker.add(() => {
   particles.children.forEach(spr => {
     // hitTest
     // PixiJS v7以降はこの方法なので注意
