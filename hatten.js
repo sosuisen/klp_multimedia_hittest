@@ -92,10 +92,7 @@ app.stage.on('pointermove', event => {
   mouseY = event.screen.y;
 });
 
-let time = 0.0;
 app.ticker.add(delta => {
-  time += delta;
-
   particles.children.forEach(spr => {
     // 発展課題：マウスで傘をさす。
 
@@ -103,7 +100,7 @@ app.ticker.add(delta => {
 
 
 
-    
+
 
     // y座標をそれぞれのspeedの値だけ増やす
     spr.y += spr.speed;
