@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js'
-import { EventBoundary } from 'pixi.js';
 
 const app = new PIXI.Application({ antialias: true, width: 800, height: 600 });
 
@@ -79,7 +78,7 @@ box.angle = 10;
 app.stage.addChild(box);
 
 // 衝突判定を実施する範囲を指定
-const boxBoundary = new EventBoundary(box);
+const boxBoundary = new PIXI.EventBoundary(box);
 
 
 /**
@@ -93,7 +92,7 @@ app.stage.addChild(kyoco);
 // 判定範囲を絵に合わせて設定
 kyoco.hitArea = new PIXI.Circle(142, 90, 64);
 
-const textBoundary = new EventBoundary(kyoco);
+const textBoundary = new PIXI.EventBoundary(kyoco);
 
 /**
  *  障害物3（基本課題）
@@ -103,9 +102,9 @@ bar.beginFill(0xa0ffa0);
 bar.drawRect(0, 0, 400, 20);
 bar.endFill();
 bar.position.set(200, 390);
-bar.interactive = true;
+bar.eventMode = 'static';
 app.stage.addChild(bar);
-const barBoundary = new EventBoundary(bar);
+const barBoundary = new PIXI.EventBoundary(bar);
 
 /**
  * マウスの位置取得
