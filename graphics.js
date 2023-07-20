@@ -12,7 +12,7 @@ graphics01.lineTo(200, 50);
 graphics01.lineTo(300, 100);
 graphics01.eventMode = 'static';
 // hitAreaを設定しない限り、当たり判定なし。
-graphics01.hitArea = new PIXI.Rectangle(30, 50, 270, 50);
+// graphics01.hitArea = new PIXI.Rectangle(30, 50, 270, 50);
 app.stage.addChild(graphics01);
 const boundary01 = new PIXI.EventBoundary(graphics01);
 
@@ -68,7 +68,7 @@ app.stage.addChild(kyoco);
 // デフォルトの判定範囲はテクスチャの長方形
 // 透明部分を判定させないためには、
 // 絵に合わせて範囲設定する必要があります。
-kyoco.hitArea = new PIXI.Circle(142, 90, 64); // ざっくり
+// kyoco.hitArea = new PIXI.Circle(142, 90, 64); // ざっくり
 const boundaryKyoco = new PIXI.EventBoundary(kyoco);
 
 /**
