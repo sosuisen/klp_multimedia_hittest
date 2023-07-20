@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js'
-import { EventBoundary, Graphics } from 'pixi.js';
 
 const app = new PIXI.Application({ antialias: true, width: 800, height: 600 });
 
@@ -93,10 +92,7 @@ app.stage.on('pointermove', event => {
   mouseY = event.screen.y;
 });
 
-let time = 0.0;
-app.ticker.add(delta => {
-  time += delta;
-
+app.ticker.add(() => {
   particles.children.forEach(spr => {
     // 発展課題：マウスで傘をさす。
 
