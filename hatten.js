@@ -115,6 +115,12 @@ app.ticker.add(() => {
       // スプライトは傘よりも上かどうか判定。
       // 下側なら無視
       if (cos > 0) {
+        /*
+          // これはあまりよくない方法。
+          if (spr.x- mouseX > 0) spr.x += spr.speed;
+          else spr.x -= spr.speed;
+        */
+
         // 衝突した雪は、傘の円に沿って移動させる。
 
         // アークコサインMath.acos()はcosの値に対応する角度をラジアンで返す。
@@ -124,20 +130,21 @@ app.ticker.add(() => {
         const newAngle = Math.min(currentAngle + Math.PI / 180, Math.PI / 2);
 
         // スプライトはカーソルの左側か右側か？
-        let sign = 1;
+        let sin = 1;
         if (spr.x - mouseX < 0) {
           // 左側の場合
-          sign = -1;
+          sin = -1;
         }
 
         // スプライトの座標を三角関数を用いて円に沿って移動させる
-        spr.x = mouseX + sign * radius * Math.sin(newAngle);
+        
+        spr.x = mouseX + sin * radius * Math.sin(newAngle);
         spr.y = mouseY - radius * Math.cos(newAngle);
 
         // 三角関数を使わず、
         // spr.yも変更せず、
         // spr.xだけ次のように変更してもそれなりには描けます。
-        // spr.x += sign * spr.speed;
+        // spr.x += sin * spr.speed;
       }
       else {
         spr.y += spr.speed;
